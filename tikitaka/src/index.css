@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-turf: #2E7D32;
+  --color-turf-light: #4CAF50;
+  --color-turf-dark: #1B5E20;
+  --color-field: #81C784;
+  --color-accent: #FF6F00;
+  --color-accent-bright: #FFA726;
+  --color-sand: #FFF8E1;
+  --color-whistle: #E0E0E0;
+
+  --font-sport: "Poppins", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-sport bg-sand;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent hover:bg-accent-bright text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg;
+  }
+  .section-title {
+    @apply text-4xl font-bold text-turf-dark mb-8 relative inline-block;
+  }
+  .section-title::after {
+    content: '';
+    @apply absolute -bottom-2 left-0 w-3/4 h-1 bg-accent rounded-full;
+  }
+}
