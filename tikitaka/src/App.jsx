@@ -1,5 +1,8 @@
 // App.jsx
 import React, { useState } from 'react';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+
+// Your existing imports
 import Navbar from './components/Layout/Navbar';
 import Footer from './components/Layout/Footer';
 import HeroSection from './components/Public/HeroSection';
@@ -13,36 +16,39 @@ import AdminDashboard from './components/Admin/AdminDashboard';
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isAdminRoute, setIsAdminRoute] = useState(window.location.pathname === '/admin');
-
-  // Simple routing simulation
-  React.useEffect(() => {
-    const handleRoute = () => {
-      setIsAdminRoute(window.location.pathname === '/admin');
-    };
-    window.addEventListener('popstate', handleRoute);
-    return () => window.removeEventListener('popstate', handleRoute);
-  }, []);
-
-  if (isAdminRoute) {
-    return isAdmin ? 
-      <AdminDashboard onLogout={() => setIsAdmin(false)} /> : 
-      <AdminLogin onLogin={setIsAdmin} />;
-  }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow">
-        <HeroSection />
-        <PricingSection />
-        <RulesSection />
-        <GallerySection />
-        <TournamentsSection />
-        <BookingSection />
-      </main>
-      <Footer />
-    </div>
+    // Wrap the whole app in HashRouter so it works on GitHub Pages
+    <HashRouter>
+      <div className="min-h-screen flex flex-col">
+        
+        <Routes>
+          {/* Public Page Route */}
+          <Route path="/" element={
+            <>
+              <Navbar />
+              <main className="flex-grow">
+                <HeroSection />
+                <PricingSection />
+                <RulesSection />
+                <GallerySection />
+                <TournamentsSection />
+                <BookingSection />
+              </main>
+              <Footer />
+            </>
+          } />
+
+          {/* Admin Page Route */}
+          <Route path="/admin" element={
+            isAdmin ? 
+              <AdminDashboard onLogout={() => setIsAdmin(false)} /> : 
+              <AdminLogin onLogin={setIsAdmin} />
+          } />
+        </Routes>
+
+      </div>
+    </HashRouter>
   );
 }
 
