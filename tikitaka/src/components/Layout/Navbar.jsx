@@ -1,5 +1,6 @@
 // components/Layout/Navbar.jsx
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // 1. Add this import
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,7 @@ const Navbar = () => {
             </div>
           </div>
           
-          {/* Desktop Menu */}
+          {/* Desktop Menu - These are fine as href because they use # anchor tags */}
           <div className="hidden md:flex space-x-8 font-semibold">
             <a href="#inicio" className="hover:text-accent-bright transition">Inicio</a>
             <a href="#precios" className="hover:text-accent-bright transition">Precios</a>
@@ -28,10 +29,10 @@ const Navbar = () => {
             <a href="#reservar" className="hover:text-accent-bright transition">Reservar</a>
           </div>
 
-          {/* Admin Link */}
-          <a href="/admin" className="hidden md:block bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm transition">
+          {/* Admin Link - 2. Changed from <a> to <Link> and href to 'to' */}
+          <Link to="/admin" className="hidden md:block bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm transition">
             Portal Admin
-          </a>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
@@ -50,7 +51,11 @@ const Navbar = () => {
             <a href="#galeria" className="block hover:text-accent-bright transition py-2">Galería</a>
             <a href="#torneos" className="block hover:text-accent-bright transition py-2">Torneos</a>
             <a href="#reservar" className="block hover:text-accent-bright transition py-2">Reservar</a>
-            <a href="/admin" className="block bg-white/20 px-4 py-2 rounded-full text-sm text-center">Portal Admin</a>
+            
+            {/* 3. Also changed the mobile admin link */}
+            <Link to="/admin" onClick={() => setIsOpen(false)} className="block bg-white/20 px-4 py-2 rounded-full text-sm text-center">
+              Portal Admin
+            </Link>
           </div>
         )}
       </div>
